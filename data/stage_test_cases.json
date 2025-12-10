@@ -1,0 +1,108 @@
+[
+  {
+    "stage": "decomposition",
+    "name": "Bug修复任务 - 矩阵金币收集",
+    "description": "修复动态规划算法中的边界条件处理问题",
+    "user_question": "这个矩阵金币收集的代码有bug，找出并修复所有问题",
+    "ground_truth": [
+      "分析代码逻辑和问题描述",
+      "检查边界条件处理",
+      "验证动态规划状态转移",
+      "检查障碍物处理逻辑",
+      "修复identified的bugs",
+      "编写测试用例",
+      "测试修复后的代码"
+    ],
+    "mode": "open"
+  },
+  {
+    "stage": "decomposition",
+    "name": "代码转换任务",
+    "description": "将Python代码转换为Java",
+    "user_question": "把这个Python算法转换成Java代码",
+    "ground_truth": [
+      "理解Python代码逻辑",
+      "确定Java等价语法",
+      "转换数据结构",
+      "转换控制流",
+      "处理异常和边界情况",
+      "验证转换正确性"
+    ],
+    "mode": "open"
+  },
+  {
+    "stage": "decomposition",
+    "name": "代码重构任务",
+    "description": "重构代码提高可读性和性能",
+    "user_question": "重构这段代码，提高可读性和性能",
+    "ground_truth": [
+      "分析现有代码结构",
+      "识别可优化点",
+      "提取重复代码",
+      "优化算法复杂度",
+      "重命名变量和函数",
+      "添加必要的注释",
+      "保持功能不变"
+    ],
+    "mode": "open"
+  },
+  {
+    "stage": "planning",
+    "name": "Bug修复任务规划",
+    "description": "规划bug修复的执行顺序",
+    "user_question": "如何规划这些bug修复任务？",
+    "ground_truth_tasks": [
+      "分析代码逻辑和问题描述",
+      "检查边界条件处理",
+      "验证动态规划状态转移",
+      "修复identified的bugs",
+      "测试修复后的代码"
+    ],
+    "dependencies": {
+      "检查边界条件处理": ["分析代码逻辑和问题描述"],
+      "验证动态规划状态转移": ["分析代码逻辑和问题描述"],
+      "修复identified的bugs": ["检查边界条件处理", "验证动态规划状态转移"],
+      "测试修复后的代码": ["修复identified的bugs"]
+    }
+  },
+  {
+    "stage": "planning",
+    "name": "代码转换任务规划",
+    "description": "规划代码转换的执行顺序",
+    "user_question": "如何规划Python到Java的转换？",
+    "ground_truth_tasks": [
+      "理解Python代码逻辑",
+      "确定Java等价语法",
+      "转换数据结构",
+      "转换控制流",
+      "验证转换正确性"
+    ],
+    "dependencies": {
+      "确定Java等价语法": ["理解Python代码逻辑"],
+      "转换数据结构": ["确定Java等价语法"],
+      "转换控制流": ["确定Java等价语法"],
+      "验证转换正确性": ["转换数据结构", "转换控制流"]
+    }
+  },
+  {
+    "stage": "planning",
+    "name": "代码重构任务规划",
+    "description": "规划代码重构的执行顺序",
+    "user_question": "如何规划代码重构任务？",
+    "ground_truth_tasks": [
+      "分析现有代码结构",
+      "识别可优化点",
+      "提取重复代码",
+      "优化算法复杂度",
+      "重命名变量和函数",
+      "保持功能不变"
+    ],
+    "dependencies": {
+      "识别可优化点": ["分析现有代码结构"],
+      "提取重复代码": ["识别可优化点"],
+      "优化算法复杂度": ["识别可优化点"],
+      "重命名变量和函数": ["识别可优化点"],
+      "保持功能不变": ["提取重复代码", "优化算法复杂度", "重命名变量和函数"]
+    }
+  }
+]

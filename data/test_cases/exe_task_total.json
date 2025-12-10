@@ -1,0 +1,90 @@
+[
+  {
+    "tag": "fix_bug",
+    "number": 1,
+    "question": "当前目录下有一个Python文件 bug_code_1.py，其中的代码存在bug。请找出并修复这些bug，将修复后的代码保存到 fix_code_1.py 中。",
+    "answer": "我会按照以下步骤来完成任务：\n1. 列出当前目录下的文件\n2. 读取 bug_code_1.py 的内容\n3. 分析代码找出bug\n4. 修复bug并保存到 fix_code_1.py\n5. 运行测试验证修复效果",
+    "SubTasks": [
+      "列出当前目录下的文件",
+      "读取 bug_code_1.py 文件内容",
+      "分析代码找出bug",
+      "修复bug并保存到 fix_code_1.py",
+      "运行测试验证修复效果"
+    ],
+    "plan_answer": "[['列出当前目录下的文件', '读取 bug_code_1.py 文件内容', '分析代码找出bug', '修复bug并保存到 fix_code_1.py', '运行测试验证修复效果']]",
+    "test_case": [0, 4, 6, 12, 21]
+  },
+  {
+    "tag": "convert",
+    "number": 1,
+    "question": "当前目录下有一个Python文件 python_1.py，需要将其转换为JavaScript代码。转换后的代码保存为 js_1.js，并确保功能保持一致。",
+    "answer": "我会按照以下步骤完成代码转换：\n1. 列出当前目录下的文件\n2. 读取 python_1.py 的内容\n3. 将Python语法转换为JavaScript语法\n4. 保存转换后的代码到 js_1.js\n5. 验证转换结果",
+    "SubTasks": [
+      "列出当前目录下的文件",
+      "读取 python_1.py 文件内容",
+      "将Python语法转换为JavaScript语法",
+      "保存转换后的代码到 js_1.js",
+      "验证转换结果"
+    ],
+    "plan_answer": "[['列出当前目录下的文件', '读取 python_1.py 文件内容', '将Python语法转换为JavaScript语法', '保存转换后的代码到 js_1.js', '验证转换结果']]"
+  },
+  {
+    "tag": "refactor",
+    "number": 1,
+    "question": "当前目录下有一个Python文件 utils_1.py，需要重构其中的代码以提高可读性。请将函数名重命名为更符合规范的驼峰命名，并直接修改 utils_1.py 文件。",
+    "answer": "我会按照以下步骤重构代码：\n1. 列出当前目录下的文件\n2. 读取 utils_1.py 的内容\n3. 分析代码结构，确定需要重命名的函数\n4. 将下划线命名改为驼峰命名\n5. 将重构后的代码写回 utils_1.py",
+    "SubTasks": [
+      "列出当前目录下的文件",
+      "读取 utils_1.py 文件内容",
+      "分析代码结构确定函数名",
+      "将下划线命名改为驼峰命名",
+      "将重构后的代码写回 utils_1.py"
+    ],
+    "plan_answer": "[['列出当前目录下的文件', '读取 utils_1.py 文件内容', '分析代码结构确定函数名', '将下划线命名改为驼峰命名', '将重构后的代码写回 utils_1.py']]",
+    "names": {"add_two_numbers": "addTwoNumbers", "multiply_two_numbers": "multiplyTwoNumbers", "process_user_input": "processUserInput"}
+  },
+  {
+    "tag": "env",
+    "number": 1,
+    "question": "当前目录下有一个Python文件 env_1.py，需要配置虚拟环境并安装依赖。请创建虚拟环境，安装 numpy 和 requests 库，然后运行该文件。",
+    "answer": "我会按照以下步骤配置环境：\n1. 列出当前目录下的文件\n2. 读取 env_1.py 查看需要的依赖\n3. 创建Python虚拟环境\n4. 在虚拟环境中安装 numpy 和 requests\n5. 在虚拟环境中运行 env_1.py",
+    "SubTasks": [
+      "列出当前目录下的文件",
+      "读取 env_1.py 查看依赖",
+      "创建Python虚拟环境",
+      "安装 numpy 和 requests",
+      "运行 env_1.py"
+    ],
+    "plan_answer": "[['列出当前目录下的文件', '读取 env_1.py 查看依赖', '创建Python虚拟环境', '安装 numpy 和 requests', '运行 env_1.py']]"
+  },
+  {
+    "tag": "sum",
+    "number": 1,
+    "question": "当前目录 sample_scraper_1 下有一个Python项目的源代码（在 src/ 目录中）。请阅读代码并生成项目的 README.md 文档，包括项目简介、功能说明和使用方法。",
+    "answer": "我会按照以下步骤生成文档：\n1. 列出 sample_scraper_1 目录的文件结构\n2. 读取 src/ 目录中的所有Python文件\n3. 分析代码理解项目功能\n4. 生成包含项目说明的 README.md\n5. 将 README.md 保存到 sample_scraper_1 目录",
+    "SubTasks": [
+      "列出 sample_scraper_1 目录结构",
+      "读取 src/ 目录中的Python文件",
+      "分析代码理解项目功能",
+      "生成 README.md 文档",
+      "保存 README.md 到项目目录"
+    ],
+    "plan_answer": "[['列出 sample_scraper_1 目录结构', '读取 src/ 目录中的Python文件', '分析代码理解项目功能', '生成 README.md 文档', '保存 README.md 到项目目录']]",
+    "sums": ""
+  },
+  {
+    "tag": "split",
+    "number": 1,
+    "question": "当前目录下有一个Python文件 case_1.py，其中有一个复杂的函数 giant_cleaner 需要拆分。请将该函数重构为多个更小的子函数，使代码结构更清晰，并保存到 fix_1.py。",
+    "answer": "我会按照以下步骤拆分代码：\n1. 列出当前目录下的文件\n2. 读取 case_1.py 的内容\n3. 分析 giant_cleaner 函数逻辑，识别可拆分的部分\n4. 将大函数拆分为多个子函数\n5. 保存重构后的代码到 fix_1.py",
+    "SubTasks": [
+      "列出当前目录下的文件",
+      "读取 case_1.py 文件内容",
+      "分析 giant_cleaner 函数逻辑识别拆分点",
+      "拆分为多个子函数",
+      "保存到 fix_1.py"
+    ],
+    "plan_answer": "[['列出当前目录下的文件', '读取 case_1.py 文件内容', '分析 giant_cleaner 函数逻辑识别拆分点', '拆分为多个子函数', '保存到 fix_1.py']]",
+    "function": "giant_cleaner"
+  }
+]

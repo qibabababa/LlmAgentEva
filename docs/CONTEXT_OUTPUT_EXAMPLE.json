@@ -1,0 +1,210 @@
+{
+  "test_case_id": "test_001",
+  "test_case_name": "Bug修复任务 - 矩阵金币收集",
+  
+  "stages": {
+    "decomposition": {
+      "input": {
+        "source": "user_question",
+        "content": "这个矩阵金币收集的代码有bug，找出并修复所有问题"
+      },
+      
+      "model_output": {
+        "raw_response": "# 目标\n修复矩阵金币收集代码中的所有bug\n\n# 任务要素\n- 分析代码逻辑，识别金币收集算法的潜在错误\n- 检查边界条件处理和数组越界问题\n- 验证动态规划状态转移是否正确\n- 测试修复后的代码，确保功能正常",
+        "extracted_tasks": [
+          "分析代码逻辑，识别金币收集算法的潜在错误",
+          "检查边界条件处理和数组越界问题",
+          "验证动态规划状态转移是否正确",
+          "测试修复后的代码，确保功能正常"
+        ]
+      },
+      
+      "ground_truth": [
+        "分析代码逻辑和问题描述",
+        "检查边界条件处理",
+        "验证动态规划状态转移",
+        "检查障碍物处理逻辑",
+        "修复identified的bugs",
+        "编写测试用例",
+        "测试修复后的代码"
+      ],
+      
+      "evaluation": {
+        "recall": 0.57,
+        "precision": 1.0,
+        "f1_score": 0.73,
+        "matched_pairs": [
+          {
+            "model_task": "分析代码逻辑，识别金币收集算法的潜在错误",
+            "ground_truth_task": "分析代码逻辑和问题描述",
+            "similarity": 0.85
+          },
+          {
+            "model_task": "检查边界条件处理和数组越界问题",
+            "ground_truth_task": "检查边界条件处理",
+            "similarity": 0.90
+          },
+          {
+            "model_task": "验证动态规划状态转移是否正确",
+            "ground_truth_task": "验证动态规划状态转移",
+            "similarity": 0.95
+          },
+          {
+            "model_task": "测试修复后的代码，确保功能正常",
+            "ground_truth_task": "测试修复后的代码",
+            "similarity": 0.88
+          }
+        ],
+        "missed_tasks": [
+          "检查障碍物处理逻辑",
+          "修复identified的bugs",
+          "编写测试用例"
+        ],
+        "passed": true
+      },
+      
+      "output_to_next_stage": {
+        "tasks": [
+          "分析代码逻辑和问题描述",
+          "检查边界条件处理",
+          "验证动态规划状态转移",
+          "检查障碍物处理逻辑",
+          "修复identified的bugs",
+          "编写测试用例",
+          "测试修复后的代码"
+        ],
+        "source": "ground_truth",
+        "note": "使用ground_truth而不是模型输出，以保证阶段2的输入正确性"
+      }
+    },
+    
+    "planning": {
+      "input": {
+        "source": "decomposition.ground_truth",
+        "tasks": [
+          "分析代码逻辑和问题描述",
+          "检查边界条件处理",
+          "验证动态规划状态转移",
+          "检查障碍物处理逻辑",
+          "修复identified的bugs",
+          "编写测试用例",
+          "测试修复后的代码"
+        ],
+        "user_message": "已拆解好的子任务列表：\n- 分析代码逻辑和问题描述\n- 检查边界条件处理\n- 验证动态规划状态转移\n- 检查障碍物处理逻辑\n- 修复identified的bugs\n- 编写测试用例\n- 测试修复后的代码"
+      },
+      
+      "model_output": {
+        "raw_response": "[['分析代码逻辑和问题描述', '编写测试用例'], ['检查边界条件处理', '验证动态规划状态转移', '检查障碍物处理逻辑'], ['修复identified的bugs'], ['测试修复后的代码']]",
+        "extracted_plan": [
+          ["分析代码逻辑和问题描述", "编写测试用例"],
+          ["检查边界条件处理", "验证动态规划状态转移", "检查障碍物处理逻辑"],
+          ["修复identified的bugs"],
+          ["测试修复后的代码"]
+        ]
+      },
+      
+      "ground_truth_plan": [
+        ["分析代码逻辑和问题描述"],
+        ["检查边界条件处理", "验证动态规划状态转移", "检查障碍物处理逻辑", "编写测试用例"],
+        ["修复identified的bugs"],
+        ["测试修复后的代码"]
+      ],
+      
+      "evaluation": {
+        "coverage": 1.0,
+        "order_correctness": 0.9,
+        "level_efficiency": 0.85,
+        "overall_score": 0.92,
+        "violations": [
+          {
+            "task": "编写测试用例",
+            "issue": "应该在层级2，但被放在了层级1",
+            "dependency": "应该依赖'分析代码逻辑和问题描述'"
+          }
+        ],
+        "passed": true
+      },
+      
+      "output_to_next_stage": {
+        "plan": [
+          ["分析代码逻辑和问题描述"],
+          ["检查边界条件处理", "验证动态规划状态转移", "检查障碍物处理逻辑", "编写测试用例"],
+          ["修复identified的bugs"],
+          ["测试修复后的代码"]
+        ],
+        "source": "ground_truth",
+        "note": "使用ground_truth plan而不是模型输出，以保证阶段3的输入正确性"
+      }
+    },
+    
+    "execution": {
+      "input": {
+        "source": "planning.ground_truth",
+        "plan": [
+          ["分析代码逻辑和问题描述"],
+          ["检查边界条件处理", "验证动态规划状态转移", "检查障碍物处理逻辑", "编写测试用例"],
+          ["修复identified的bugs"],
+          ["测试修复后的代码"]
+        ],
+        "task_data": {
+          "task_type": "fix_bug",
+          "task_file": "data/tasks/bug_code/bug_code_1.py",
+          "test_cases_file": "data/tasks/bug_test/case_1.json"
+        },
+        "system_context": "系统会给出一个已排好序的二维列表：[['分析代码逻辑和问题描述'], ['检查边界条件处理', '验证动态规划状态转移', '检查障碍物处理逻辑', '编写测试用例'], ['修复identified的bugs'], ['测试修复后的代码']]"
+      },
+      
+      "execution_log": {
+        "round_1": {
+          "task": "分析代码逻辑和问题描述",
+          "tool_call": "read_file",
+          "output": "读取了bug_code_1.py，发现动态规划算法..."
+        },
+        "round_2": {
+          "task": "检查边界条件处理",
+          "tool_call": "search_files",
+          "output": "发现边界条件检查缺失..."
+        },
+        "round_3": {
+          "task": "验证动态规划状态转移",
+          "tool_call": "read_file",
+          "output": "状态转移方程存在问题..."
+        },
+        "...": "...",
+        "round_12": {
+          "task": "测试修复后的代码",
+          "tool_call": "execute_command",
+          "output": "所有测试通过"
+        }
+      },
+      
+      "evaluation": {
+        "total_rounds": 12,
+        "tool_calls": 25,
+        "test_results": {
+          "total": 5,
+          "passed": 5,
+          "failed": 0
+        },
+        "passed": true
+      }
+    }
+  },
+  
+  "overall": {
+    "all_stages_passed": true,
+    "stage_scores": {
+      "decomposition": 0.73,
+      "planning": 0.92,
+      "execution": 1.0
+    },
+    "average_score": 0.88,
+    "summary": "分解: ✅ (F1=0.73) | 规划: ✅ (0.92) | 执行: ✅ (5/5)",
+    
+    "context_flow": {
+      "stage1_to_stage2": "ground_truth tasks (7个)",
+      "stage2_to_stage3": "ground_truth plan (4层)",
+      "note": "每个阶段使用ground_truth作为下一阶段的输入，保证上下文稳定性"
+    }
+  }
+}

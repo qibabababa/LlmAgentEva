@@ -1,0 +1,132 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "execute_command",
+      "description": "在系统上执行 CLI 命令。若命令具有副作用（安装/卸载、删除文件、网络操作等）需先得到用户批准；读取/查看等安全操作可直接执行。不要用&&一次链接多个命令。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string",
+            "description": "要在当前工作目录下执行的 CLI 命令。必须是合法、正确且安全的系统命令。"
+          },
+          "requires_approval": {
+            "type": "boolean",
+            "description": "是否需要用户显式批准：副作用操作设为 true；安全只读操作设为 false。"
+          }
+        },
+        "required": ["command", "requires_approval"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "read_file",
+      "description": "读取指定路径文件的内容（文本/源码/配置）。对二进制文件可能返回不可读内容。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "要读取的文件路径，相对于当前工作目录"
+          }
+        },
+        "required": ["path"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "list_files",
+      "description": "列出指定目录的文件与子目录。可递归，并支持对大型目录进行块分段获取。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "要列出内容的目录路径，相对于当前工作目录。"
+          },
+          "recursive": {
+            "type": "boolean",
+            "description": "是否递归列出子目录。默认 false（仅顶层）。"
+          },
+          "block": {
+            "type": "integer",
+            "description": "当目录很大时，可分块获取内容。指定块号（从 1 开始）。"
+          }
+        },
+        "required": ["path"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "replace_in_file",
+      "description": "使用严格的 SEARCH/REPLACE 块在文件中做精准替换。仅替换首个匹配项，可串联多个块顺序替换。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "要修改的文件路径，相对于当前工作目录。"
+          },
+          "diff": {
+            "type": "string",
+            "description": "一个或多个遵循以下精确格式的SEARCH/REPLACE块：\n  ```\n  <<<<<<< SEARCH\n  [要查找的精确内容]\n  =======\n  [要替换的新内容]\n  >>>>>>> REPLACE\n  ```\n  重要规则：\n  1. SEARCH内容必须与要查找的文件部分完全匹配：\n     * 包括空格、缩进、行尾在内的逐字符匹配\n     * 包含所有注释、文档字符串等\n  2. SEARCH/REPLACE块将仅替换第一个匹配项：\n     * 如果需要进行多处更改，请包含多个唯一的SEARCH/REPLACE块\n     * 在每个SEARCH部分中包含足够的行以唯一匹配需要更改的每组行\n     * 使用多个SEARCH/REPLACE块时，按它们在文件中出现的顺序列出\n  3. 保持SEARCH/REPLACE块简洁：\n     * 将大的SEARCH/REPLACE块分解成一系列较小的块，每个块更改文件的一小部分\n     * 仅包含正在更改的行，如果需要唯一性，可包含几行周围的行\n     * 不要在SEARCH/REPLACE块中包含长串未更改的行\n     * 每行必须完整。切勿在行中途截断，因为这可能导致匹配失败\n  4. 特殊操作：\n     * 移动代码：使用两个SEARCH/REPLACE块（一个用于从原位置删除+一个用于在新位置插入）\n     * 删除代码：使用空的REPLACE部分\n"
+          }
+        },
+        "required": ["path", "diff"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "write_to_file",
+      "description": "将完整内容写入指定文件（自动创建目录）。若文件已存在则覆盖。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "要写入的文件路径，相对于当前工作目录。"
+          },
+          "content": {
+            "type": "string",
+            "description": "写入文件的完整内容，需用 <![CDATA[ ... ]]> 包裹以避免 XML 转义问题。"
+          }
+        },
+        "required": ["path", "content"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search_files",
+      "description": "在目录中递归执行正则搜索，返回带上下文的匹配结果；可按 glob 模式过滤文件。",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "要搜索的目录路径，相对于当前工作目录。"
+          },
+          "regex": {
+            "type": "string",
+            "description": "Rust 正则表达式语法的搜索模式。"
+          },
+          "file_pattern": {
+            "type": "string",
+            "description": "可选，文件 glob 过滤模式（如 \"*.ts\"）。不提供时搜索全部文件。"
+          }
+        },
+        "required": ["path", "regex"]
+      }
+    }
+  }
+]

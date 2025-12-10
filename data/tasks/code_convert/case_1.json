@@ -1,0 +1,12 @@
+[
+  {
+    "name": "positive_division",
+    "input": "7 3\n",
+    "expected": "2\n1\n"
+  },
+  {
+    "name": "negative_dividend",
+    "input": "-7 3\n",
+    "expected": "-3\n2\n"
+  }
+]

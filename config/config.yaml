@@ -1,0 +1,180 @@
+
+
+# ==================== API配置 ====================
+# 注意：API密钥等敏感信息应该配置在 .env 文件中，而不是这里
+# 这里的值作为默认值，会被环境变量覆盖
+api:
+  # API基础配置
+  base_url: "http://v2.open.venus.oa.com/llmproxy/v1/chat/completions"
+  api_key: "your-api-key-here"  # 请在 .env 文件中配置 API_KEY
+  
+  # 默认模型
+  default_model: "qwen3-235b-a22b-thinking-2507-fp8"
+  
+  # API参数
+  temperature: 0.7
+  timeout: 600  # 秒
+  max_retries: 3
+  
+  # 流式配置
+  stream:
+    enabled: true  # 是否启用流式API
+    fallback_to_non_stream: true  # 流式失败时是否fallback
+
+# ==================== 路径配置 ====================
+paths:
+  # 项目根目录（自动检测）
+  project_root: "."
+  
+  # 数据目录
+  data_dir: "data"
+  tasks_dir: "data/tasks"
+  prompts_dir: "data/prompts"
+  test_cases_dir: "data/test_cases"
+  
+  # 输出目录
+  outputs_dir: "outputs"
+  logs_dir: "logs"
+  
+  # 虚拟环境
+  venv_dir: "env"
+
+# ==================== 任务配置 ====================
+tasks:
+  # 支持的任务类型
+  supported_types:
+    - fix_bug
+    - convert
+    - refactor
+    - env
+    - sum
+    - split
+  
+  # 任务数据目录映射
+  data_dirs:
+    fix_bug: "data/tasks/bug_code"
+    bug_test: "data/tasks/bug_test"
+    convert: "data/tasks/code_convert"
+    refactor: "data/tasks/code_refactor"
+    env: "data/tasks/code_env"
+    sum: "data/tasks/code_sum"
+    split: "data/tasks/code_split"
+  
+  # 任务执行配置
+  execution:
+    max_rounds: 15  # 最大对话轮数
+    enable_cache: false
+    parallel_execution: false  # 是否并行执行（未来功能）
+
+# ==================== 工具配置 ====================
+tools:
+  # 支持的工具列表
+  enabled:
+    - execute_command
+    - read_file
+    - list_files
+    - replace_in_file
+    - write_to_file
+    - ask_followup_question
+    - search_files
+    - list_code_definition_names
+    - return_content
+  
+  # 工具定义文件
+  definitions_file: "data/prompts/tool_list.json"
+
+# ==================== 系统提示词配置 ====================
+prompts:
+  # 系统提示词文件
+  system_prompt_file: "data/prompts/system_prompt_2.json"
+  
+  # 三阶段评测配置
+  stages:
+    decomposition:
+      default_format: "markdown"  # 默认输出格式: json, markdown, xml
+      supported_formats:
+        - json
+        - markdown
+        - xml
+    planning:
+      default_format: "list"  # 任务规划默认使用列表格式
+    execution:
+      default_format: "standard"  # 任务执行使用标准格式
+
+# ==================== 评测配置 ====================
+evaluation:
+  # 评测策略
+  strategies:
+    fix_bug: "bugcode_validator"
+    convert: "code_convert_validator"
+    refactor: "refactor_validator"
+    env: "env_validator"
+    sum: "sum_validator"
+    split: "split_validator"
+  
+  # 结果输出
+  save_details: true
+  save_summary: true
+  output_format: "json"
+  
+  # ==================== 评估模型配置 ====================
+  # 用于评估sum和split任务结果的LLM（Judge Model）
+  # 与被测试的模型分离，避免自己评估自己
+  judge_model:
+    enabled: true  # 是否启用LLM评估
+    
+    # 评估模型API配置（如果不配置则使用主API配置）
+    api_key: ""  # 留空则使用主API的key，或在.env中配置JUDGE_API_KEY
+    base_url: ""  # 留空则使用主API的base_url，或在.env中配置JUDGE_API_BASE_URL
+    model: "gpt-4"  # 评估模型名称，建议使用更强的模型（如GPT-4、Claude等）
+    
+    # 评估模型参数
+    temperature: 0.1  # 低温度保证评估稳定性
+    timeout: 120  # 评估超时时间（秒）
+    max_tokens: 400  # 评估响应最大token数
+    max_retries: 2  # 评估失败重试次数
+    
+    # 回退策略
+    fallback_to_rules: true  # LLM评估失败时是否回退到规则评估
+  
+  # ==================== 任务分解评测配置 ====================
+  task_decomposition:
+    use_llm_similarity: true  # 是否使用LLM判断语义相似度
+    similarity_threshold: 0.7  # 相似度阈值（LLM判断时推荐0.7，规则方法推荐0.4-0.5）
+    fallback_threshold: 0.5  # 降级到规则方法时的阈值
+
+# ==================== 日志配置 ====================
+logging:
+  # 日志级别: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: "INFO"
+  
+  # 日志格式
+  format: "[%(asctime)s] [%(levelname)s] %(message)s"
+  date_format: "%Y-%m-%d %H:%M:%S"
+  
+  # 日志文件
+  file: "logs/evaluation.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 5
+  
+  # 控制台输出
+  console_output: true
+
+# ==================== 开发配置 ====================
+development:
+  # 调试模式
+  debug: false
+  
+  # 详细输出
+  verbose: false
+  
+  # 保留临时文件
+  keep_temp_files: false
+
+# ==================== 环境配置 ====================
+environments:
+  # 可以创建不同环境的配置文件
+  # config/environments/dev.yaml
+  # config/environments/test.yaml
+  # config/environments/prod.yaml
+  current: "default"
